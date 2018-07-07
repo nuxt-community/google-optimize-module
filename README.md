@@ -41,7 +41,9 @@ npm install nuxt-google-optimize --save
 
   // Optional options
   googleOptimize: {
-    experimentsDir: '~/experiments'
+    // experimentsDir: '~/experiments',
+    // maxAge: 60 * 60 * 24 * 7 // 1 Week
+    // pushPlugin: true,
   }
 }
 ```
