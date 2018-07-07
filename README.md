@@ -128,7 +128,7 @@ It has the following keys:
   "sections": 1,
   "maxAge": 60,
   "variants": [
-    /* alll variants */
+    /* all variants */
   ]
 }
 ```
