@@ -94,7 +94,7 @@ Global object `$exp` will be universally injected in the app context to determin
 
 It has the following keys:
 
-```json
+```json6
 {
   // Index of currently active experiment
   "$experimentIndex": 0,
