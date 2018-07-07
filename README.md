@@ -18,6 +18,7 @@
 - SSR support using cookies
 - CSS and state injection
 - Automatically revoke expired experiments from testers
+- Ability to assign experiments based on context conditions (Route, State, etc)
 
 ## Setup
 
@@ -74,10 +75,13 @@ export default {
   experimentID: '....',
 
   // [optional] specify number of sections for MVT experiments
-  sections: 1,
+  // sections: 1,
 
   // [optional] maxAge for a user to test this experiment
-  maxAge: 60 * 60 * 24, // 24 hours
+  // maxAge: 60 * 60 * 24, // 24 hours,
+
+  // [optional] Enable/Set experiment on certain conditions
+  // isEligible: ({ route }) => route.path !== '/foo'
 
   // Implemented variants and their weights
   variants: [
@@ -221,7 +225,7 @@ import './styles.scss'
 - Start development server using `yarn run dev` or `npm run dev`
 - Point your browser to `http://localhost:3000`
 - You will see a different colour based on the variant set for you
-- In order to test your luck, try clearing your cookies and see if the background colour changes or not 
+- In order to test your luck, try clearing your cookies and see if the background colour changes or not
 
 ## License
 
