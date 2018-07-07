@@ -13,15 +13,23 @@
 
 ## Features
 
-- Support multiply experiments (AB or MVT)
+- Support multiply experiments (AB or MVT[Multi-Variant])
 - Auto assign experiment/variant to users
 - SSR support using cookies
-- CSS and State injection
+- CSS and state injection
 - Automatically revoke expired experiments from testers
 
 ## Setup
 
 - Add `nuxt-google-optimize` dependency using yarn or npm to your project
+```sh
+yarn add nuxt-google-optimize
+```
+OR
+```sh
+npm install nuxt-google-optimize --save
+```
+
 - Add `nuxt-google-optimize` to `modules` section of `nuxt.config.js`
 
 ```js
@@ -82,21 +90,21 @@ export default {
 
 ### `$exp`
 
-Global object `$exp` will be universally injected to the context to determine current active experiment.
+Global object `$exp` will be universally injected in the app context to determine the currently active experiment.
 
 It has the following keys:
 
 ```json
 {
-  // Index of current active experiment
+  // Index of currently active experiment
   "$experimentIndex": 0,
 
-  // Indext of current active experiment variants
+  // Indext of currently active experiment variants
   "$variantIndexes": [
     1
   ],
 
-  // Same as $variantIndexes but each item is real variant object
+  // Same as $variantIndexes but each item is the real variant object
   "$activeVariants": [
     {
       /* */
@@ -105,10 +113,10 @@ It has the following keys:
 
   // Classes to be globally injected (see global style tests section)
   "$classes": [
-    "exp-background-color-1"
+    "exp-background-color-1" // exp-{experiment-name}-{variant-id}
   ],
 
-  // All of the keys of current active experiment are available
+  // All of the keys of currently active experiment are available
   "name": "background-color",
   "experimentID": "testid",
   "sections": 1,
@@ -133,7 +141,7 @@ export default {
 </script>
 ```
 
-**Using inside template:**
+**Using inside templates:**
 
 ```html
 <div v-if="$exp.name === 'something'">
@@ -169,7 +177,7 @@ export default {
 </script>
 ```
 
-If you have custom CSS for each test, you can import it inside experiment js file.
+If you have custom CSS for each test, you can import it inside your experiment's `.js` file.
 
 `experiments/background-color/index.js`:
 
@@ -210,7 +218,10 @@ import './styles.scss'
 
 - Clone this repository
 - Install dependencies using `yarn install` or `npm install`
-- Start development server using `npm run dev`
+- Start development server using `yarn run dev` or `npm run dev`
+- Point your browser to `http://localhost:3000`
+- You will see a different colour based on the variant set for you
+- In order to test your luck, try clearing your cookies and see if the background colour changes or not 
 
 ## License
 
