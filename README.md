@@ -13,7 +13,7 @@
 
 ## Features
 
-- Support multiply experiments (AB or MVT[Multi-Variant])
+- Support multiple experiments (AB or MVT[Multi-Variant])
 - Auto assign experiment/variant to users
 - SSR support using cookies
 - CSS and state injection
