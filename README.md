@@ -80,9 +80,9 @@ export default {
 }
 ```
 
-### `$experiment`
+### `$exp`
 
-Global object `$experiment` will be universally injected to the context to determine current active experiment.
+Global object `$exp` will be universally injected to the context to determine current active experiment.
 
 It has the following keys:
 
@@ -126,7 +126,7 @@ It has the following keys:
 export default {
   methods: {
     foo() {
-      // You can use this.$experiment here
+      // You can use this.$exp here
     }
   }
 }
@@ -136,8 +136,8 @@ export default {
 **Using inside template:**
 
 ```html
-<div v-if="$experiment.name === 'something'">
-  <!-- You can optionally use $experiment.$activeVariants and $experiment.$variantIndexes here -- >
+<div v-if="$exp.name === 'something'">
+  <!-- You can optionally use $exp.$activeVariants and $exp.$variantIndexes here -- >
   ...
 </div>
 <div v-else>
@@ -161,7 +161,7 @@ export default {
       head () {
         return {
             bodyAttrs: {
-                class: this.$experiment.$classes.join(' ')
+                class: this.$exp.$classes.join(' ')
             }
         }
     },

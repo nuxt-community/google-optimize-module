@@ -7,7 +7,7 @@ export default {
       head() {
         return {
             bodyAttrs: {
-                class: [...this.$experiment.$classes].join(' ')
+                class: [...this.$exp.$classes].join(' ')
             }
         }
     },
