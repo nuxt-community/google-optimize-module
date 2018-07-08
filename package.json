@@ -1,6 +1,6 @@
 {
   "name": "nuxt-google-optimize",
-  "version": "0.2.2",
+  "version": "0.3.0",
   "description": "SSR friendly Google Optimize module for Nuxt.js",
   "license": "MIT",
   "contributors": [
