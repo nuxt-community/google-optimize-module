@@ -1,5 +1,6 @@
 <template>
 <div class="container">
+  <h2>It Works!</h2>
   <h3>Variants: </h3>
   <table>
     <thead>
