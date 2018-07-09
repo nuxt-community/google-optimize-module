@@ -2,6 +2,25 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.5.0"></a>
+# 0.5.0 (2018-07-09)
+
+
+### Bug Fixes
+
+* **plugin:** currently handle empty experiments ([31caafa](https://github.com/alibaba-aero/nuxt-google-optimize/commit/31caafa))
+* **plugin:** handle dynamically disabled experiments ([c6620d0](https://github.com/alibaba-aero/nuxt-google-optimize/commit/c6620d0))
+
+
+### Features
+
+* **example:** add more details and button to test your luck ([73cc700](https://github.com/alibaba-aero/nuxt-google-optimize/commit/73cc700))
+* **experiment:** accept isEligible function ([7193621](https://github.com/alibaba-aero/nuxt-google-optimize/commit/7193621))
+* **module:** accept plugins array ([4cc7278](https://github.com/alibaba-aero/nuxt-google-optimize/commit/4cc7278))
+* **module:** pushPlugin option ([87ae7e1](https://github.com/alibaba-aero/nuxt-google-optimize/commit/87ae7e1))
+
+
+
 <a name="0.4.0"></a>
 # [0.4.0](https://github.com/alibaba-aero/nuxt-google-optimize/compare/v0.3.0...v0.4.0) (2018-07-08)
 
