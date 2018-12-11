@@ -19,6 +19,7 @@
 - CSS and state injection
 - Automatically revoke expired experiments from testers
 - Ability to assign experiments based on context conditions (Route, State, etc)
+- Support external experiment source using axios
 
 ## Setup
 
@@ -44,6 +45,7 @@ npm install nuxt-google-optimize --save
     // experimentsDir: '~/experiments',
     // maxAge: 60 * 60 * 24 * 7 // 1 Week
     // pushPlugin: true,
+    // externalExperimentsSrc: 'https://my.experi.ment/list',
   }
 }
 ```
