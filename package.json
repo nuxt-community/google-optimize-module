@@ -33,7 +33,7 @@
     "collectCoverage": true
   },
   "dependencies": {
-    "cookie": "^0.3.1",
+    "cookie": "^0.4.0",
     "weighted-random": "^0.1.0"
   },
   "devDependencies": {
