@@ -8,5 +8,8 @@ module.exports = {
   render: {
     resourceHints: false
   },
-  modules: ['@@']
+  modules: [resolve(__dirname, '../../../lib/module')],
+  googleOptimize: {
+    excludeBots: true
+  }
 }

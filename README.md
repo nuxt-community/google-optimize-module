@@ -105,7 +105,7 @@ It has the following keys:
   // Index of currently active experiment
   "$experimentIndex": 0,
 
-  // Indext of currently active experiment variants
+  // Index of currently active experiment variants
   "$variantIndexes": [
     1
   ],
