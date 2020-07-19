@@ -44,6 +44,8 @@ npm install nuxt-google-optimize --save
     // experimentsDir: '~/experiments',
     // maxAge: 60 * 60 * 24 * 7 // 1 Week
     // pushPlugin: true,
+    // excludeBots: true,
+    // botExpression: /(bot|spider|crawler)/i
   }
 }
 ```
