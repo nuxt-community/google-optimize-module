@@ -1,7 +1,7 @@
 const { setup, loadConfig, url } = require('@nuxtjs/module-test-utils')
 const puppeteer = require('puppeteer')
 
-describe('basic', () => {
+describe('bot-block', () => {
   let nuxt, page, browser
 
   beforeAll(async () => {
