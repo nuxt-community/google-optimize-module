@@ -1,6 +1,6 @@
 {
   "name": "nuxt-google-optimize",
-  "version": "0.5.5",
+  "version": "0.5.4",
   "description": "SSR friendly Google Optimize module for Nuxt.js",
   "license": "MIT",
   "contributors": [
@@ -20,7 +20,7 @@
     "access": "public"
   },
   "scripts": {
-    "dev": "nuxt test/fixture/bot-block",
+    "dev": "nuxt test/fixture",
     "lint": "eslint lib test",
     "test": "npm run lint && jest",
     "release": "standard-version && git push --follow-tags && npm publish"
