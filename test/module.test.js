@@ -58,7 +58,7 @@ describe('defaults', () => {
   ]
 
   for (const agent of blockedUserAgents) {
-    test('', async () => {
+    test(`agent: ${agent}`, async () => {
       await page.setUserAgent(agent)
       await page.goto(url('/'))
 
@@ -73,7 +73,7 @@ describe('defaults', () => {
   ]
 
   for (const agent of unBlockedUserAgents) {
-    test('', async () => {
+    test(`agent: ${agent}`, async () => {
       await page.setUserAgent(agent)
       await page.goto(url('/'))
 
