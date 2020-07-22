@@ -46,7 +46,7 @@ npm install nuxt-google-optimize --save
     // pushPlugin: true,
     // excludeBots: true,
     // botExpression: /(bot|spider|crawler)/i,
-    // emitOnLoad: true
+    // emitOnLoad: true,
   }
 }
 ```
