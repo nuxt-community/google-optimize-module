@@ -8,5 +8,14 @@ module.exports = {
   render: {
     resourceHints: false
   },
-  modules: [resolve(__dirname, '../../lib/module')]
+  modules: [resolve(__dirname, '../../lib/module')],
+  head: {
+    script: [{
+      hid: 'ga',
+      innerHTML: 'window.ga = function(){ window.gaCalled = true }'
+    }],
+    __dangerouslyDisableSanitizersByTagID: {
+      ga: ['innerHTML']
+    }
+  }
 }

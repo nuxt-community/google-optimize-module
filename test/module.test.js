@@ -81,4 +81,11 @@ describe('defaults', () => {
       expect($exp.name).toBe('test1')
     })
   }
+
+  test('ga called', async () => {
+    await page.goto(url('/'))
+
+    const gaCalled = await page.evaluate(() => window.gaCalled)
+    expect(gaCalled).toBe(true)
+  })
 })
