@@ -9,6 +9,9 @@
     },
     {
       "name": "Farzad Soltani <farzad.au@gmail.com>"
+    },
+    {
+      "name": "Josh Deltener <hecktarzuli@gmail.com>"
     }
   ],
   "main": "lib/module.js",
@@ -37,6 +40,7 @@
     "weighted-random": "^0.1.0"
   },
   "devDependencies": {
+    "@nuxtjs/module-test-utils": "latest",
     "codecov": "latest",
     "eslint": "latest",
     "eslint-config-standard": "latest",
@@ -47,8 +51,8 @@
     "eslint-plugin-standard": "latest",
     "eslint-plugin-vue": "latest",
     "jest": "latest",
-    "jsdom": "latest",
     "nuxt-edge": "latest",
+    "puppeteer": "latest",
     "standard-version": "latest"
   }
 }

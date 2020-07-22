@@ -1,5 +1,9 @@
-import test1 from './test1'
-
-export default [
-  test1
-]
+export default [{
+  name: 'test1',
+  experimentID: 'id1',
+  variants: [
+    { weight: 100 },
+    { weight: 0 }
+  ],
+  maxAge: 120
+}]
