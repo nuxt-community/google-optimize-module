@@ -28,6 +28,7 @@ describe('defaults', () => {
     expect($exp.experimentID).toBe('id1')
     expect($exp.variants).toEqual([{ weight: 100 }, { weight: 0 }])
     expect($exp.maxAge).toBe(120)
+    expect($exp.token).toBe('id1.0')
   })
 
   test('client = server', async () => {
@@ -43,7 +44,8 @@ describe('defaults', () => {
       '$classes',
       'name',
       'experimentID',
-      'variants'
+      'variants',
+      'token'
     ]
 
     props.forEach(prop => {

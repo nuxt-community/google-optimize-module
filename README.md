@@ -13,25 +13,25 @@
 
 ## Features
 
-- Support multiple experiments (AB or MVT[Multi-Variant])
+- Supports multiple experiments (AB or MVT[Multi-Variant])
 - Auto assign experiment/variant to users
 - SSR support using cookies
 - CSS and state injection
-- Automatically revoke expired experiments from testers
+- Automatically revoke expired experiments and assign new ones
 - Ability to assign experiments based on context conditions (Route, State, etc)
+- Works well with Google Tag Manager and Google Analytics
 
 ## Setup
 
-- Add `nuxt-google-optimize` dependency using yarn or npm to your project
+Add `nuxt-google-optimize` dependency using yarn or npm to your project.
 ```sh
+# using yarn
 yarn add nuxt-google-optimize
-```
-OR
-```sh
+# using npm
 npm install nuxt-google-optimize --save
 ```
 
-- Add `nuxt-google-optimize` to `modules` section of `nuxt.config.js`
+Add `nuxt-google-optimize` to `modules` section of `nuxt.config.js`
 
 ```js
 {
@@ -39,17 +39,27 @@ npm install nuxt-google-optimize --save
     'nuxt-google-optimize',
   ],
 
-  // Optional options
+  // Options
   googleOptimize: {
     // experimentsDir: '~/experiments',
-    // maxAge: 60 * 60 * 24 * 7 // 1 Week
+    // maxAge: 604800 // 1 week (in seconds)
     // pushPlugin: true,
     // excludeBots: true,
-    // botExpression: /(bot|spider|crawler)/i,
+    // botExpression: /(bot|spider|crawler)/i
     // emitOnLoad: true,
   }
 }
 ```
+
+## Options
+- **experimentsDir**: The directory where your experiments are stored.  It should have an index.js file containing an array of experiments. 
+
+- **maxAge**: The maximum time to keep a user assigned to an experiment. (in seconds)
+
+- **pushPlugin**: Pushes this plugin to the bottom of the plugin list.  This allows you to setup other plugins (such as Google Analytics / Google Tag Manager) before this one initializes.
+- **excludeBots**: Exclude robot user agents from experiment assignment.
+- **botExpression**: A regular expression to detect robot user agents when excludeRobots is true.
+- **emitOnLoad**: Report experiment assignment to Google Analytics when the plugin is loaded.  If your experiment isn't on every page, set this to false and report the experiment to Google Analytics when the user sees it.  If not, your Google Optimize data will be diluted with users who never saw your experiment!
 
 ## Usage
 
@@ -126,10 +136,11 @@ It has the following keys:
   ],
 
   // All of the keys of currently active experiment are available
-  "name": "background-color",
+  "name": "background-color", 
   "experimentID": "testid",
   "sections": 1,
   "maxAge": 60,
+  "token": "testid.0", // the google optimize token
   "variants": [
     /* all variants */
   ]
@@ -162,9 +173,46 @@ export default {
 </div>
 ```
 
-### Global style tests
+### Working with experiment styles
+If you have custom CSS for each test, you can import it inside your experiment's `.js` file.
 
-Inject global styles to page body.
+`experiments/background-color/index.js`:
+
+```js
+import './styles.scss'
+```
+
+**With Sass:**
+
+```scss
+.exp-background-color {
+  // Variant 1
+  &-1 {
+    background-color: red;
+  }
+  // Variant 2
+  &-2 {
+    background-color: blue;
+  }
+}
+```
+
+**With CSS:**
+
+```css
+/* Variant 1 */
+.exp-background-color-1 {
+  background-color: red;
+}
+
+/* Variant 2 */
+.exp-background-color-2 {
+  background-color: blue;
+}
+```
+
+
+Inject global styles into your layout.
 
 `layouts/default.vue`:
 
@@ -186,51 +234,64 @@ export default {
 </script>
 ```
 
-If you have custom CSS for each test, you can import it inside your experiment's `.js` file.
+This would render:
 
-`experiments/background-color/index.js`:
+```html
+<body class="exp-background-color-2">
+```
+
+## Integrating with Google Tag Manager
+There are many ways to integrate Google Optimize with GTM.  Usually you have Google Analytics setup in GTM and you push the experiment token into GTM.
+
+### Method 1 - Push Token To the Data Layer
+
+This method pushes the exp value directly into the dataLayer to be used within a GTM tag.
+
+- In GTM, create a new variable called `exp`.
+
+- Next, create a new variable of type `Google Analytics Settings`.
+
+- Under `Fields to Set`, add a field with the name `exp` and value `{{ exp }}`
+
+- In your code, pass the token value to GTM
+```js
+// directly
+dataLayer.push({ exp: window.$nuxt.$exp.token })
+
+// or using the Nuxt GTM module
+this.$gtm.push({ exp: this.$exp.token })
+```
+
+Now when you trigger GA pageviews or events the exp value will be attached to the user.
+
+### Method 2 - Call Google Analytics Yourself From GTM
+
+- Create a tag in GTM of type Html
+- Use whatever trigger you like
+- Fill the tag with the following content
+```js
+<script>window.ga('set', 'exp', window.$nuxt.$exp.token)</script>
+```
+
+This will call the Google Analytics lib directly and report the experiment assignment for the current user whenever you activate the trigger.
+
+
+## emitOnLoad Caution
+
+By default emitOnLoad is true (for backward compatability).  This means that when a user hits your site this plugin will tell Google Analytics (Optimize) that the user is in the experiment. 
+
+If your experiments aren't on every page, you'll want to turn this off and report the experiment yourself.  If you don't, then your Google Optimize reports will contain a bunch of users who likely never saw your experiment.  In other words **GARBAGE DATA**.
+
+To report users to Optimize yourself, use the token property.
 
 ```js
-import './styles.scss'
-```
-
-**With Sass:**
-
-```scss
-.exp-background-color {
-  // ---------------- Variant 1 ----------------
-  &-1 {
-    background-color: red;
-  }
-  // ---------------- Variant 2 ----------------
-  &-2 {
-    background-color: blue;
-  }
-}
-```
-
-**With CSS:**
-
-```css
-/* Variant 1 */
-.exp-background-color-1 {
-  background-color: red;
+mounted(){
+  // call Google Analytics directly and set the experiment for the user
+  window.ga('set', 'exp', this.$exp.token)
 }
 
-/* Variant 2 */
-.exp-background-color-2 {
-  background-color: blue;
-}
 ```
 
-## Development
-
-- Clone this repository
-- Install dependencies using `yarn install` or `npm install`
-- Start development server using `yarn run dev` or `npm run dev`
-- Point your browser to `http://localhost:3000`
-- You will see a different colour based on the variant set for you
-- In order to test your luck, try clearing your cookies and see if the background colour changes or not
 
 ## License
 
