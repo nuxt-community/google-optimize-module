@@ -44,6 +44,8 @@ npm install nuxt-google-optimize --save
     // experimentsDir: '~/experiments',
     // maxAge: 60 * 60 * 24 * 7 // 1 Week
     // pushPlugin: true,
+    // eventHandler: 'ga', // 'ga' = Google Analytics integration || 'gtm' = @nuxtjs/gtm-module integration || 'dataLayer' = GTM integration
+    // dataLayer: 'dataLayer', // eventHandler option has to be 'dataLayer' when implementing custom GTM dataLayer
     // excludeBots: true,
     // botExpression: /(bot|spider|crawler)/i
   }
@@ -221,6 +223,22 @@ import './styles.scss'
   background-color: blue;
 }
 ```
+
+## Usage with GTM
+
+- Set `options.eventHandler` to 'gtm' or 'dataLayer' depending which integration style you use for Tag Manager.
+- Edit your "Page view (Google Analytics)" -tag in [Google Tag Manager](https://tagmanager.google.com/#/home)
+  - Add new "Fields to Set":
+    - Field Name: exp
+    - Value: {{googleOptimizeExp}}
+- Add new Data Layer Variable called "googleOptimizeExp" as defined above.
+  - Variable type: Data Layer Variable
+  - Data Layer Variable Name: exp
+
+[Source for this setup lossleader's answer in StackOverflow](https://stackoverflow.com/a/53253769/871677)
+
+Now this module pushes experiment id and variable number to Google Analytics via Google Tag Manager.
+experiment.experimentID + '.' + experiment.$variantIndexes.join('-')
 
 ## Development
 
