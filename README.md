@@ -44,7 +44,7 @@ npm install nuxt-google-optimize --save
     // experimentsDir: '~/experiments',
     // maxAge: 60 * 60 * 24 * 7 // 1 Week
     // pushPlugin: true,
-    // eventHandler: 'ga', // 'ga' = Google Analytics integration || 'gtm' = @nuxtjs/gtm-module integration || 'dataLayer' = GTM integration
+    // eventHandler: 'ga', // 'ga' (default) = Google Analytics integration || 'gtm' = @nuxtjs/gtm-module integration || 'dataLayer' = GTM integration
     // dataLayer: 'dataLayer', // eventHandler option has to be 'dataLayer' when implementing custom GTM dataLayer
     // excludeBots: true,
     // botExpression: /(bot|spider|crawler)/i
