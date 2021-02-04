@@ -41,16 +41,70 @@ npm install nuxt-google-optimize --save
 
   // Optional options
   googleOptimize: {
-    // experimentsDir: '~/experiments',
-    // maxAge: 60 * 60 * 24 * 7 // 1 Week
-    // pushPlugin: true,
-    // eventHandler: 'ga', // 'ga' (default) = Google Analytics integration || 'gtm' = @nuxtjs/gtm-module integration || 'dataLayer' = GTM integration
-    // dataLayer: 'dataLayer', // eventHandler option has to be 'dataLayer' when implementing custom GTM dataLayer
-    // excludeBots: true,
-    // botExpression: /(bot|spider|crawler)/i
+    /* module options */
   }
 }
 ```
+
+## Options
+
+### `experimentsDir`
+
+- Type: `String`
+- Default: `'~/experiments'`
+
+Provide path where experiments are located.
+
+### `maxAge`
+
+- Type: `Number`
+- Default: `60 * 60 * 24 * 7`
+
+Provides default max age for user to test.
+
+### `pushPlugin`
+
+- Type: `Boolean`
+- Default: `true`
+
+### `eventHandler`
+
+- Type: `Function`
+- Default:
+```js
+(experiment, context) => {
+  const exp =
+    experiment.experimentID + '.' + experiment.$variantIndexes.join('-')
+  const { ga } = window
+  if (!ga) return
+  ga('set', 'exp', exp)
+}
+```
+
+Provide custom event handler to send experiment details.
+
+Usage example:
+```js
+googleOptimize: {
+  eventHandler: (experiment, context) => {
+    const exp = experiment.experimentID + '.' + experiment.$variantIndexes.join('-')
+    const { ga } = window
+    if (!ga) return
+    ga('set', 'exp', exp)
+  }
+}
+```
+
+### `excludeBots`
+
+- Type: `Boolean`
+- Default: `true`
+
+### `botExpression`
+
+- Type: `RegExp`
+- Default: `/(bot|spider|crawler)/i`
+
 
 ## Usage
 
@@ -226,7 +280,26 @@ import './styles.scss'
 
 ## Usage with GTM
 
-- Set `options.eventHandler` to 'gtm' or 'dataLayer' depending which integration style you use for Tag Manager.
+- Set `options.eventHandler`:
+```js
+// GTM module
+{
+  eventHandler: (experiment, { $gtm }) => {
+    const exp = `${experiment.experimentID}.${experiment.$variantIndexes.join( '-' )}`
+    $gtm.push({ exp })
+  }
+}
+
+// Default datalayer
+{
+  eventHandler: (experiment, { $gtm }) => {
+    const exp = `${experiment.experimentID}.${experiment.$variantIndexes.join( '-' )}`
+    const { dataLayer } = window
+    if (!dataLayer) return
+    dataLayer.push({ exp })
+  }
+}
+```
 - Edit your "Page view (Google Analytics)" -tag in [Google Tag Manager](https://tagmanager.google.com/#/home)
   - Add new "Fields to Set":
     - Field Name: exp
@@ -234,6 +307,7 @@ import './styles.scss'
 - Add new Data Layer Variable called "googleOptimizeExp" as defined above.
   - Variable type: Data Layer Variable
   - Data Layer Variable Name: exp
+
 
 [Source for this setup lossleader's answer in StackOverflow](https://stackoverflow.com/a/53253769/871677)
 
