@@ -1,5 +1,7 @@
-# nuxt-google-optimize
+## Google Is Shutting Down Optimize
+Google is shutting down Optimize Sept 30, 2023. [Read the annoucement](https://support.google.com/optimize/answer/12979939?hl=en)
 
+# nuxt-google-optimize
 [![npm (scoped with tag)](https://img.shields.io/npm/v/nuxt-google-optimize/latest.svg?style=flat-square)](https://npmjs.com/package/nuxt-google-optimize)
 [![npm](https://img.shields.io/npm/dt/nuxt-google-optimize.svg?style=flat-square)](https://npmjs.com/package/nuxt-google-optimize)
 [![CircleCI](https://img.shields.io/circleci/project/github/alibaba-aero/nuxt-google-optimize.svg?style=flat-square)](https://circleci.com/gh/alibaba-aero/nuxt-google-optimize)
