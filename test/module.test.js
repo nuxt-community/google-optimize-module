@@ -5,15 +5,20 @@ describe('defaults', () => {
   let nuxt, page, browser
 
   beforeAll(async () => {
-    browser = await puppeteer.launch()
-    page = await browser.newPage();
-
     ({ nuxt } = await setup(loadConfig(__dirname)))
   }, 60000)
 
+  beforeEach(async () => {
+    browser = await puppeteer.launch()
+    page = await browser.newPage()
+  })
+
+  afterEach(async () => {
+    await browser.close()
+  })
+
   afterAll(async () => {
     await nuxt.close()
-    await browser.close()
   })
 
   test('variant-0', async () => {
@@ -81,4 +86,13 @@ describe('defaults', () => {
       expect($exp.name).toBe('test1')
     })
   }
+
+  test('evaluated experiment ID', async () => {
+    await page.goto(url('/test-evaluated-experimentID?id=context-specific-experimentID'))
+    const $exp = await page.evaluate(() => window.$exp)
+
+    expect($exp.$experimentIndex).toBe(1)
+    expect($exp.name).toBe('test-evaluated-experimentID')
+    expect($exp.experimentID).toBe('context-specific-experimentID')
+  })
 })

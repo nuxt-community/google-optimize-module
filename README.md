@@ -79,6 +79,8 @@ export default {
 
   // Google optimize experiment id
   experimentID: '....',
+  // Experiment id evaluated from context, e.g. from runtime config
+  // experimentID: ({ $config }) => $config.experimentIDs.backgroundColor
 
   // [optional] specify number of sections for MVT experiments
   // sections: 1,
@@ -236,4 +238,3 @@ import './styles.scss'
 ## License
 
 [MIT License](./LICENSE) - Alibaba Travels Co
-
